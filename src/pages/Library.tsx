@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AdUnit from '../components/AdUnit';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Filter, Download, Zap, X, ExternalLink } from 'lucide-react';
 
@@ -53,6 +54,8 @@ export default function Library() {
               </button>
             </div>
           </div>
+          
+          <AdUnit />
 
           {/* Game Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

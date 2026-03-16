@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import AdUnit from '../components/AdUnit';
 import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { motion } from 'motion/react';
@@ -23,6 +24,7 @@ export default function Home() {
       
       <main>
         <Hero />
+        <AdUnit />
         
         {/* Categories Section */}
         <section className="py-20 bg-black">
