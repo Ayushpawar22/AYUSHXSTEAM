@@ -10,7 +10,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Library', href: '/library' },
-    { name: 'Weekly Free', href: '#' },
+    { name: 'Paid Games', href: '/paid-games' },
     { name: 'Rules', href: '#' },
     { name: 'Guides', href: '#' },
   ];
@@ -44,9 +44,6 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <button className="bg-emerald-500 hover:bg-emerald-600 text-black px-4 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105">
-                Login
-              </button>
             </div>
           </div>
 
@@ -79,9 +76,6 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <button className="w-full mt-4 bg-emerald-500 text-black px-4 py-3 rounded-lg text-base font-bold">
-              Login
-            </button>
           </div>
         </motion.div>
       )}

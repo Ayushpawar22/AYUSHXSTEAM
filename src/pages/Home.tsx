@@ -163,9 +163,6 @@ export default function Home() {
               >
                 Join Telegram
               </a>
-              <button className="w-full sm:w-auto bg-emerald-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all transform hover:scale-105">
-                Create Account
-              </button>
             </div>
           </div>
         </section>
