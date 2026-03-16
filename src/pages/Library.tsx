@@ -233,19 +233,26 @@ export default function Library() {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-gray-400 mb-8 leading-relaxed">
-                    You have claimed game for id pass. <br />
-                    <span className="text-white font-medium block mt-2">Go on the link for id pass:</span>
-                    <a 
-                      href={selectedGame?.link || "https://linkpays.in/og6mqxm"} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-emerald-500 font-bold hover:underline break-all flex items-center justify-center gap-2 mt-2"
-                    >
-                      {selectedGame?.link || "https://linkpays.in/og6mqxm"}
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </p>
+                  <div className="mb-8">
+                    {selectedGame?.id === 1 && (
+                      <p className="text-white font-bold mb-4 text-sm leading-relaxed">
+                        ON WEBSITE THERE IS GOOGLE ADS while claiming the resident evil requiem the ads are there because of most demandend game
+                      </p>
+                    )}
+                    <p className="text-gray-400 leading-relaxed">
+                      You have claimed game for id pass. <br />
+                      <span className="text-white font-medium block mt-2">Go on the link for id pass:</span>
+                      <a 
+                        href={selectedGame?.link || "https://linkpays.in/og6mqxm"} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-emerald-500 font-bold hover:underline break-all flex items-center justify-center gap-2 mt-2"
+                      >
+                        {selectedGame?.link || "https://linkpays.in/og6mqxm"}
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </p>
+                  </div>
                 )}
                 
                 <button 
