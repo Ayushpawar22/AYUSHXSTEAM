@@ -13,7 +13,7 @@ export default function Library() {
       id: 1,
       title: 'Resident Evil Requiem',
       category: 'Horror / Action',
-      image: 'https://storage.googleapis.com/demo-bucket/user-uploads/ooawnmewnkbibc44hel4oz/2026-03-16/11-36-08/image.png', // User-provided game poster
+      image: 'https://www.residentevil.com/requiem/assets/images/share.jpg', // Official game poster
       status: 'Free',
       rating: '4.9',
     },
