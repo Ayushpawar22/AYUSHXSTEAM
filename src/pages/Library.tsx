@@ -3,11 +3,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import AdUnit from '../components/AdUnit';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Filter, Download, Zap, X, ExternalLink } from 'lucide-react';
+import { Search, Filter, Download, Zap, X, ExternalLink, Copy, Check } from 'lucide-react';
 
 export default function Library() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const [selectedGame, setSelectedGame] = useState<any | null>(null);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const games = [
     {
@@ -17,13 +18,32 @@ export default function Library() {
       image: 'https://www.residentevil.com/requiem/assets/images/share.jpg', // Official game poster
       status: 'Free',
       rating: '4.9',
+      link: 'https://linkpays.in/og6mqxm'
     },
-    // More games can be added here
+    {
+      id: 2,
+      title: 'The Last of Us Part II Remastered',
+      category: 'Action / Adventure',
+      image: 'https://howlongtobeat.com/games/141122_The_Last_of_Us_Part_II_Remastered.jpg?width=760',
+      status: 'Free',
+      rating: '5.0',
+      credentials: {
+        username: 'mutnr91844',
+        password: 'dolus86-FunPAy'
+      }
+    },
   ];
 
-  const handleClaim = (gameTitle: string) => {
-    setSelectedGame(gameTitle);
+  const handleClaim = (game: any) => {
+    setSelectedGame(game);
     setShowModal(true);
+    setCopiedField(null);
+  };
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
   };
 
   return (
@@ -94,11 +114,11 @@ export default function Library() {
                   </h3>
                   
                   <button 
-                    onClick={() => handleClaim(game.title)}
+                    onClick={() => handleClaim(game)}
                     className="w-full bg-white/5 hover:bg-emerald-500 hover:text-black border border-white/10 hover:border-emerald-500 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all"
                   >
                     <Download className="w-4 h-4" />
-                    Claim RE9
+                    Claim Now
                   </button>
                 </div>
               </motion.div>
@@ -144,19 +164,56 @@ export default function Library() {
                   <Zap className="w-8 h-8 text-emerald-500" />
                 </div>
                 <h2 className="text-2xl font-bold mb-4">Claim Successful!</h2>
-                <p className="text-gray-400 mb-8 leading-relaxed">
-                  You have claimed game for id pass. <br />
-                  <span className="text-white font-medium block mt-2">Go on the link for id pass:</span>
-                  <a 
-                    href="https://linkpays.in/og6mqxm" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-emerald-500 font-bold hover:underline break-all flex items-center justify-center gap-2 mt-2"
-                  >
-                    https://linkpays.in/og6mqxm
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </p>
+                
+                {selectedGame?.credentials ? (
+                  <div className="space-y-4 mb-8 text-left">
+                    <p className="text-gray-400 text-sm text-center mb-4">Use the following credentials to access the game account:</p>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Username</label>
+                        <div className="flex items-center gap-2 bg-black border border-white/10 rounded-xl p-3 group">
+                          <code className="flex-1 text-emerald-500 font-mono text-sm overflow-hidden text-ellipsis">{selectedGame.credentials.username}</code>
+                          <button 
+                            onClick={() => copyToClipboard(selectedGame.credentials.username, 'username')}
+                            className="p-1.5 hover:bg-white/10 rounded-lg transition-colors text-gray-500 hover:text-white"
+                            title="Copy Username"
+                          >
+                            {copiedField === 'username' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Password</label>
+                        <div className="flex items-center gap-2 bg-black border border-white/10 rounded-xl p-3 group">
+                          <code className="flex-1 text-emerald-500 font-mono text-sm overflow-hidden text-ellipsis">{selectedGame.credentials.password}</code>
+                          <button 
+                            onClick={() => copyToClipboard(selectedGame.credentials.password, 'password')}
+                            className="p-1.5 hover:bg-white/10 rounded-lg transition-colors text-gray-500 hover:text-white"
+                            title="Copy Password"
+                          >
+                            {copiedField === 'password' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-gray-400 mb-8 leading-relaxed">
+                    You have claimed game for id pass. <br />
+                    <span className="text-white font-medium block mt-2">Go on the link for id pass:</span>
+                    <a 
+                      href={selectedGame?.link || "https://linkpays.in/og6mqxm"} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-emerald-500 font-bold hover:underline break-all flex items-center justify-center gap-2 mt-2"
+                    >
+                      {selectedGame?.link || "https://linkpays.in/og6mqxm"}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </p>
+                )}
                 
                 <button 
                   onClick={() => setShowModal(false)}

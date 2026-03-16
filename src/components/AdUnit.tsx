@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -7,10 +7,15 @@ declare global {
 }
 
 export default function AdUnit() {
+  const initialized = useRef(false);
+
   useEffect(() => {
+    if (initialized.current) return;
+
     try {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && window.adsbygoogle) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        initialized.current = true;
       }
     } catch (e) {
       console.error('AdSense error:', e);
