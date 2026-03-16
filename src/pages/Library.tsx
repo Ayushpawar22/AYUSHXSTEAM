@@ -9,6 +9,7 @@ export default function Library() {
   const [showModal, setShowModal] = useState(false);
   const [selectedGame, setSelectedGame] = useState<any | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const games = [
     {
@@ -30,6 +31,18 @@ export default function Library() {
       credentials: {
         username: 'mutnr91844',
         password: 'dolus86-FunPAy'
+      }
+    },
+    {
+      id: 3,
+      title: 'Wallpaper Engine',
+      category: 'Utility / Personalization',
+      image: 'https://cdn.akamai.steamstatic.com/steam/apps/431960/library_600x900.jpg',
+      status: 'Free',
+      rating: '4.8',
+      credentials: {
+        username: 'teodanh9529',
+        password: 'thanhdanh03'
       }
     },
   ];
@@ -65,6 +78,8 @@ export default function Library() {
                 <input 
                   type="text" 
                   placeholder="Search games..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="bg-zinc-900 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500 w-full sm:w-64"
                 />
               </div>
@@ -79,7 +94,9 @@ export default function Library() {
 
           {/* Game Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {games.map((game, index) => (
+            {games
+              .filter(game => game.title.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map((game, index) => (
               <motion.div
                 key={game.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -124,6 +141,22 @@ export default function Library() {
               </motion.div>
             ))}
           </div>
+
+          {games.filter(game => game.title.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+            <div className="text-center py-20">
+              <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-gray-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">No games found</h3>
+              <p className="text-gray-500">We couldn't find any games matching "{searchQuery}"</p>
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="mt-6 text-emerald-500 font-bold hover:underline"
+              >
+                Clear search
+              </button>
+            </div>
+          )}
 
           {/* Empty State / Load More */}
           <div className="mt-16 text-center">
